@@ -7,7 +7,10 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-mlflow.set_tracking_uri("http://127.0.0.1:5000")
+import dagshub
+dagshub.init(repo_owner='preety-07', repo_name='MLFlow_experiment1', mlflow=True)
+
+mlflow.set_tracking_uri("https://dagshub.com/preety-07/MLFlow_experiment1.mlflow")
 
 # Load the iris dataset
 iris = load_iris()
@@ -20,7 +23,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # Define the parameters for the Random Forest model
 max_depth = 2
 
-mlflow.set_experiment('iris-dt')
+mlflow.set_experiment('iris-dt2')
 
 with mlflow.start_run():
 
@@ -51,7 +54,7 @@ with mlflow.start_run():
 
     mlflow.log_artifact(__file__)
 
-    mlflow.sklearn.log_model(dt, "decision tree")
+    # mlflow.sklearn.log_model(dt, "decision_tree") #unsupported endpoint error - fix it
 
     mlflow.set_tag('author','aayu')
     mlflow.set_tag('model','decision tree')
